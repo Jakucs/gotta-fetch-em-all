@@ -1,8 +1,6 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState, useEffect } from 'react'
 import './App.css'
+import Locations from './components/Locations'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,6 +8,7 @@ function App() {
   return (
     <>
       <h1>hahooooo</h1>
+      <Locations></Locations>
     </>
   )
 }
