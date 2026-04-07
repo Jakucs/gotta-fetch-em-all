@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import "./Locations.css"
 
 function Locations(){
 
@@ -18,12 +19,14 @@ function Locations(){
 
     if(locationList){
         return(
-            locationList.results.map((city)=> {
-                return <button key={city.name}>{city.name}</button>
-            })
+            <div className="locations-container">
+                {locationList.results.map((city)=> {
+                    return <button className="location-btn" key={city.name}>{city.name}</button>
+                })}
+            </div>
         )
     }else{
-        console.log("Nincs adat")
+        <p>Loading...</p>
     }
 }
 
