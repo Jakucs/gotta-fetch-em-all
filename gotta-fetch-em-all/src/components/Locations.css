@@ -1,14 +1,14 @@
 .locations-container {
     display: flex;
-    flex-direction: column;     /* egymás alá rendezi */
-    align-items: center;        /* vízszintesen középre */
-    gap: 12px;                  /* térköz a gombok között */
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     margin: 40px auto;
-    max-width: 200px;           /* container ne legyen túl széles */
+    max-width: 200px;
 }
 
 .location-btn {
-    width: 150px;               /* fix gombszélesség */
+    width: 150px;
     text-align: center;
     padding: 10px 14px;
     border: 1px solid #ddd;

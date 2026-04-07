@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import "./Locations.css"
+import Pokemons from "./Pokemons"
 
 function Locations(){
 
     const [locationList, setLocationList] = useState(null)
+    const [selectedLocation, setSelectedLocation] = useState(null)
 
     useEffect(()=>{
         async function getAllLocations(){
@@ -15,13 +17,34 @@ function Locations(){
         getAllLocations()
     }, [])
 
-    console.log(locationList)
+    if(locationList){
+        //console.log(locationList)
+    }
 
     if(locationList){
         return(
             <div className="locations-container">
                 {locationList.results.map((city)=> {
-                    return <button className="location-btn" key={city.name}>{city.name}</button>
+                    return (
+                    <div className="location-item" key={city.name}>
+                        <button 
+                        className="location-btn" 
+                        
+                        onClick={()=>setSelectedLocation(city)}
+                        >
+                            {city.name}
+                        </button>
+                        
+                        {selectedLocation === city ? 
+                        (<Pokemons
+                            selectedLocation={selectedLocation}
+                        />) :
+                        null
+                    
+                    }
+                        
+                    </div>
+                    )
                 })}
             </div>
         )
