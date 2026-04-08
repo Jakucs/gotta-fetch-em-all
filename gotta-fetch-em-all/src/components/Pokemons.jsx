@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 function Pokemons(props){
     
     const [pokemonURLs, setPokemonURLs] = useState([])
+    const [onePokemon, setOnePokemon] = useState(null)
 
     let nextURL = props.selectedLocation.url
     useEffect(()=>{
@@ -16,16 +17,33 @@ function Pokemons(props){
             let pokemonList = data2.pokemon_encounters
             console.log(pokemonList)
             
-            const urls = pokemonList.map(p=>p.url)
+            const urls = pokemonList.map(p=>p.pokemon.url ?? null)
             setPokemonURLs(urls)
         }
         getPokemon()
-        console.log(pokemonURLs)
+        //console.log(pokemonURLs)
     }, [])
+
+    //console.log(pokemonURLs)
+    let randomPokemonURL = pokemonURLs[Math.floor(Math.random() * pokemonURLs.length)]
     
+    useEffect(()=> {
+        async function fetchOnePokemon(){
+            
+            let res = await fetch(randomPokemonURL)
+            let data = await res.json()
+            console.log("data", data)
+            setOnePokemon(data)
+        }
+        fetchOnePokemon()
+    }, [])
+    //console.log("onePokemon", onePokemon)
+
     return(
-        <div key={props.selectedLocation.name}>
-            <h3>{props.selectedLocation.name}</h3>
+        <div>
+            <div key={props.selectedLocation.name}>
+                <h3>{props.selectedLocation.name}</h3>
+            </div>
         </div>
     )
 }
