@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>hahooooo</h1>
+      <h1>Pokémon Locations</h1>
       <Locations></Locations>
     </>
   )
