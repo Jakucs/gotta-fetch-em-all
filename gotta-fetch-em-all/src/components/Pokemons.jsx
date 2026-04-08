@@ -41,7 +41,8 @@ function Pokemons(props){
             if(isMounted)
             {
                 let pokemon = {
-                    name: data.forms[0].name
+                    name: data.forms[0].name,
+                    image: data.sprites?.front_default
                 }
                 setSelectedPokemon(pokemon)
             }
@@ -78,7 +79,8 @@ console.log("selectedPokemon", selectedPokemon)
     return(
         <div>
             <div key={props.selectedLocation.name}>
-                <h3>{props.selectedLocation.name}</h3>
+                <h3>{selectedPokemon.name}</h3>
+                <img src={selectedPokemon.image} alt="no image" />
             </div>
         </div>
     )

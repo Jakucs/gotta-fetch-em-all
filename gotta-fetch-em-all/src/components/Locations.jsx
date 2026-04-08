@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./Locations.css"
 import Pokemons from "./Pokemons"
 
-function Locations(){
+function Locations(props){
 
     const [locationList, setLocationList] = useState(null)
     const [selectedLocation, setSelectedLocation] = useState(null)
