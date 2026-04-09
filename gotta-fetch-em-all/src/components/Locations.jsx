@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./Locations.css"
 import Pokemons from "./Pokemons"
+import LocationList from "./LocationList"
 
 function Locations(props){
 
@@ -17,54 +18,20 @@ function Locations(props){
         getAllLocations()
     }, [])
 
-    if(locationList){
-        console.log(locationList)
+    if(!locationList) return
+
+    if(selectedLocation){
+        return <Pokemons selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation}/>
     }
 
-    if(!locationList) return
 return (
     <>
-    {(selectedLocation) ? (
-        <Pokemons selectedLocation={selectedLocation}/>
-    ) : (
-    <div className="locations-container">
-        {locationList.results.map((location) => {
-            return <div className="currentLocation" key={location.name}>
-                <button 
-                className="location-btn"
-                onClick={()=>setSelectedLocation(location)}
-                >{location.name}</button>
-            </div>
-
-
-        })}
-
-    </div>
-    )}
+      <LocationList
+      locations={locationList.results}
+      onSelect={setSelectedLocation}
+      />
     </>
 )
-
-
-/*         return (
-  <>
-    {selectedLocation ? (
-      <Pokemons selectedLocation={selectedLocation} />
-    ) : (
-      <div className="locations-container">
-        {locationList?.results.map((city) => (
-          <div className="location-item" key={city.name}>
-            <button
-              className="location-btn"
-              onClick={() => setSelectedLocation(city)}
-            >
-              {city.name}
-            </button>
-          </div>
-        ))}
-      </div>
-    )}
-  </>
-) */
     
 }
 

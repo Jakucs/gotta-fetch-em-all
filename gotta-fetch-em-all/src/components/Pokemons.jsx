@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import PokemonCard from "./PokemonCard"
 
 function Pokemons(props){
     
@@ -54,24 +55,16 @@ function Pokemons(props){
     }
     }, [randomPokemonURL])
 
-console.log("selectedPokemon", selectedPokemon)
+//console.log("selectedPokemon", selectedPokemon)
 
-const animatedImage =
-   selectedPokemon.sprites?.other?.showdown?.front_default;
+return (
+    <div>
+        <PokemonCard pokemon={selectedPokemon}/>
+        <button className="location-btn" onClick={()=>props.setSelectedLocation(null)}>Run away...</button>
+    </div>
+)
 
-const staticImage = selectedPokemon.sprites?.front_default;
-console.log("animatedImage:", animatedImage);
-    return(
-        <div>
-            <div key={props.selectedLocation.name}>
-                <h3>{selectedPokemon.name}</h3>
-  <img
-    src={animatedImage || staticImage}
-    alt={selectedPokemon.name}
-  />
-            </div>
-        </div>
-    )
+
 }
 
 export default Pokemons
