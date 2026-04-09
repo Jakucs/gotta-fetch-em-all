@@ -42,7 +42,8 @@ function Pokemons(props){
             {
                 let pokemon = {
                     name: data.forms[0].name,
-                    image: data.sprites?.front_default
+                    image: data.sprites?.front_default,
+                    sprites: data.sprites
                 }
                 setSelectedPokemon(pokemon)
             }
@@ -55,13 +56,19 @@ function Pokemons(props){
 
 console.log("selectedPokemon", selectedPokemon)
 
-    
+const animatedImage =
+   selectedPokemon.sprites?.other?.showdown?.front_default;
 
+const staticImage = selectedPokemon.sprites?.front_default;
+console.log("animatedImage:", animatedImage);
     return(
         <div>
             <div key={props.selectedLocation.name}>
                 <h3>{selectedPokemon.name}</h3>
-                <img src={selectedPokemon.image} alt="no image" />
+  <img
+    src={animatedImage || staticImage}
+    alt={selectedPokemon.name}
+  />
             </div>
         </div>
     )
