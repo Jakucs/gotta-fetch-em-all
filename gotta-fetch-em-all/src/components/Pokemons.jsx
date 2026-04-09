@@ -54,26 +54,7 @@ function Pokemons(props){
     }, [randomPokemonURL])
 
 console.log("selectedPokemon", selectedPokemon)
-/*     //console.log("pokemons", pokemons)
-    let randomPokemonURL = pokemonURLs[Math.floor(Math.random() * pokemonURLs.length)]
-    //console.log(randomPokemonURL)
-    //console.log("pokemons", pokemons)
 
-    useEffect(()=> {
-        async function fetchPokemons(){
-            if(randomPokemonURL){
-                let res = await fetch(randomPokemonURL)
-                let data = await res.json()
-                //console.log("data", data)
-                setPokemons(data)
-            } else{
-                console.log("Még nem fetchelte le")
-            }
-        }
-        fetchPokemons()
-    }, [randomPokemonURL]) */
-    
-    //console.log(pokemons)
     
 
     return(

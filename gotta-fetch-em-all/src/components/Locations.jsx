@@ -18,39 +18,54 @@ function Locations(props){
     }, [])
 
     if(locationList){
-        //console.log(locationList)
+        console.log(locationList)
     }
 
-    if(locationList){
-        return(
-            <div className="locations-container">
-                {locationList.results.map((city)=> {
-                    return (
-                    <div className="location-item" key={city.name}>
-                        <button 
-                        className="location-btn" 
-                        
-                        onClick={()=>setSelectedLocation(city)}
-                        >
-                            {city.name}
-                        </button>
-                        
-                        {selectedLocation === city ? 
-                        (<Pokemons
-                            selectedLocation={selectedLocation}
-                        />) :
-                        null
-                    
-                    }
-                        
-                    </div>
-                    )
-                })}
+    if(!locationList) return
+return (
+    <>
+    {(selectedLocation) ? (
+        <Pokemons selectedLocation={selectedLocation}/>
+    ) : (
+    <div className="locations-container">
+        {locationList.results.map((location) => {
+            return <div className="currentLocation" key={location.name}>
+                <button 
+                className="location-btn"
+                onClick={()=>setSelectedLocation(location)}
+                >{location.name}</button>
             </div>
-        )
-    }else{
-        <p>Loading...</p>
-    }
+
+
+        })}
+
+    </div>
+    )}
+    </>
+)
+
+
+/*         return (
+  <>
+    {selectedLocation ? (
+      <Pokemons selectedLocation={selectedLocation} />
+    ) : (
+      <div className="locations-container">
+        {locationList?.results.map((city) => (
+          <div className="location-item" key={city.name}>
+            <button
+              className="location-btn"
+              onClick={() => setSelectedLocation(city)}
+            >
+              {city.name}
+            </button>
+          </div>
+        ))}
+      </div>
+    )}
+  </>
+) */
+    
 }
 
 export default Locations
