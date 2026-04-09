@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react"
 import PokemonCard from "./PokemonCard"
 
+    const myPokemons = [
+        "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+        "https://pokeapi.co/api/v2/pokemon/charizard",
+        "https://pokeapi.co/api/v2/pokemon/poliwhirl"
+    ]
+
 function Pokemons(props){
     
     const [pokemonURLs, setPokemonURLs] = useState([])
     const [randomPokemonURL, setRandomPokemonURL] = useState(null)
     const [selectedPokemon, setSelectedPokemon] = useState({})
+    const [userPokemons, setUserPokemons] = useState([])
 
     let nextURL = props.selectedLocation.url
     useEffect(()=>{
@@ -50,16 +57,40 @@ function Pokemons(props){
             }
         }
         fetchCurrentPokemon()
-            return () => {
-        isMounted = false
-    }
+            
     }, [randomPokemonURL])
+
+        useEffect(()=>{
+        if(!myPokemons) return;
+        async function fetchMyPokemons(){
+            const data = await Promise.all(myPokemons.map(async (url)=>{
+                const res = await fetch(url)
+                return await res.json()
+            }))
+
+            const formattedPokemons = data.map((pokemon) => ({
+                    name: pokemon.forms[0].name,
+                    image: pokemon.sprites?.front_default,
+                    sprites: pokemon.sprites
+            }))
+
+            setUserPokemons(formattedPokemons)
+
+
+
+            //console.log("data", data)
+        }
+        fetchMyPokemons()
+        
+    }, [])
+
+    //console.log(userPokemons)
 
 //console.log("selectedPokemon", selectedPokemon)
 
 return (
     <div>
-        <PokemonCard pokemon={selectedPokemon}/>
+        <PokemonCard pokemon={selectedPokemon} myPokemons={userPokemons}/>
         <button className="location-btn" onClick={()=>props.setSelectedLocation(null)}>Run away...</button>
     </div>
 )
