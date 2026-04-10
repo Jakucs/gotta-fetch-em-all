@@ -17,6 +17,8 @@ function PokemonCard({pokemon, myPokemons}){
     return(
         <div>
             <div>
+                {!myFighterPokemon &&      
+                <div>
                 <h3>Enemy: {pokemon.name}</h3>
                 <img
                     src={animatedImage || staticImage}
@@ -24,8 +26,15 @@ function PokemonCard({pokemon, myPokemons}){
                 />
                 <br />
                 <br />
-
+                </div>        
                 
+}
+
+
+                {!isBattle &&                 
+                
+                <div>
+
                 <h3>User's Pokémons: </h3>
                 {myPokemons.map((myPokemon) => {
                     const animated =
@@ -48,6 +57,11 @@ function PokemonCard({pokemon, myPokemons}){
                         )
                     
                 })}
+                </div>
+                }
+
+
+
                 {isBattle && myFighterPokemon && (
                     <Battle own={myFighterPokemon} enemy={pokemon}/>
                 )}
