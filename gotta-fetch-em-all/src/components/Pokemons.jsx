@@ -52,7 +52,10 @@ function Pokemons(props){
                 let pokemon = {
                     name: data.forms[0].name,
                     image: data.sprites?.front_default,
-                    sprites: data.sprites
+                    sprites: data.sprites,
+                    hp: data.stats[0].base_stat,
+                    attack: data.stats[1].base_stat,
+                    defense: data.stats[2].base_stat
                 }
                 setSelectedPokemon(pokemon)
             }
@@ -72,7 +75,10 @@ function Pokemons(props){
             const formattedPokemons = data.map((pokemon) => ({
                     name: pokemon.forms[0].name,
                     image: pokemon.sprites?.front_default,
-                    sprites: pokemon.sprites
+                    sprites: pokemon.sprites,
+                    hp: pokemon.stats[0]?.base_stat,
+                    attack: pokemon.stats[1].base_stat,
+                    defense: pokemon.stats[2].base_stat
             }))
 
             setUserPokemons(formattedPokemons)

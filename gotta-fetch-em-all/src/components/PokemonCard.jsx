@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Battle from './Battle'
 
 
 function PokemonCard({pokemon, myPokemons}){
 
-    const [myFighterPokemon, setMyFighterPokemon] = useState({})
+    const [isBattle, setIsBattle] = useState(false)
+    const [myFighterPokemon, setMyFighterPokemon] = useState(null)
 
     const animatedImage =
     pokemon.sprites?.other?.showdown?.front_default;
@@ -23,39 +25,33 @@ function PokemonCard({pokemon, myPokemons}){
                 <br />
                 <br />
 
-            {(myFighterPokemon.name) ? (
-                        <div key={myFighterPokemon.name}>
-                            <h3>{myFighterPokemon.name}</h3>
+                
+                <h3>User's Pokémons: </h3>
+                {myPokemons.map((myPokemon) => {
+                    const animated =
+                    myPokemon.sprites?.other?.showdown?.front_default;
+                    const staticImage = myPokemon.sprites?.front_default;
+                        return (
+                            <div key={myPokemon.name}>
+                                <h3>{myPokemon.name}</h3>
                             <img
-                            src={myFighterPokemon.sprites?.other?.showdown?.front_default || myFighterPokemon.sprites?.front_default}
-                            alt={myFighterPokemon.name}
+                        src={animated || staticImage}
+                        alt={myPokemon.name}
+                        onClick={
+                            ()=>{
+                                setIsBattle(true)
+                                setMyFighterPokemon(myPokemon)
+                            }
+                        }
                     />
-                        </div>
-            ): (
-                <div>
-                    <h3>User's Pokémons: </h3>
-                    {myPokemons.map((myPokemon) => {
-                        const animated =
-                        myPokemon.sprites?.other?.showdown?.front_default;
-                        const staticImage = myPokemon.sprites?.front_default;
-                            return (
-                                <div key={myPokemon.name}>
-                                    <h3>{myPokemon.name}</h3>
-                                <img
-                            src={animated || staticImage}
-                            alt={myPokemon.name}
-                            onClick={()=>setMyFighterPokemon(myPokemon)}
-                        />
-                                </div>
-                            )
-                        
-                    })}
-                </div>
-            )}
-
-
-
-                    {console.log(myFighterPokemon)}
+                            </div>
+                        )
+                    
+                })}
+                {isBattle && myFighterPokemon && (
+                    <Battle own={myFighterPokemon} enemy={pokemon}/>
+                )}
+{/*                     {console.log(myFighterPokemon)} */}
             </div>
         </div>
     )
