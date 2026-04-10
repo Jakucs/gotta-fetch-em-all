@@ -6,15 +6,32 @@ function Battle({own, enemy}){
     if(!enemy) return <p>Loading...</p>
     {console.log("own, enemy", own, enemy)}
 
+
+
     function fight(){
 /*         ((((2/5+2)*B*60/D)/50)+2)*Z/255  */ 
         let myAttack=own.attack
         let enemyAttack = enemy.attack
+
         let myDefense = own.defense
         let enemyDefense = enemy.defense
         let Z = Math.floor(Math.random() * (255 - 217)) + 217
+
+        setInterval(()=>{
+            round(myAttack, enemyAttack, myDefense, enemyDefense, Z)
+        }, 1000)
+
     }
 fight()
+
+    function round(myAttack, enemyAttack, myDefense, enemyDefense, Z){
+        let myNewData = ((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255
+        let enemyNewData = ((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255
+        console.log(myNewData)
+        console.log(enemyNewData)
+    }
+
+
     return(
     <div>
         <div className="battle-container">
