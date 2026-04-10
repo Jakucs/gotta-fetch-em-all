@@ -3,10 +3,9 @@ import "./Locations.css"
 import Pokemons from "./Pokemons"
 import LocationList from "./LocationList"
 
-function Locations(props){
+function Locations({selectedLocation, setSelectedLocation}){
 
     const [locationList, setLocationList] = useState(null)
-    const [selectedLocation, setSelectedLocation] = useState(null)
 
     useEffect(()=>{
         async function getAllLocations(){
@@ -18,7 +17,7 @@ function Locations(props){
         getAllLocations()
     }, [])
 
-    if(!locationList) return
+    if(!locationList) return <div>Loading...</div>
 
     if(selectedLocation){
         return <Pokemons selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation}/>
