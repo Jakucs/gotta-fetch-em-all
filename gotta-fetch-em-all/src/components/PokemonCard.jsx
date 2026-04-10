@@ -9,11 +9,13 @@ function PokemonCard({pokemon, myPokemons}){
     return(
         <div>
             <div>
-                <h3>{pokemon.name}</h3>
+                <h3>Enemy: {pokemon.name}</h3>
                 <img
                     src={animatedImage || staticImage}
                     alt={pokemon.name}
                 />
+                <br />
+                <br />
                 <h3>User's Pokémons: </h3>
 
                 {myPokemons.map((myPokemon) => {
@@ -21,7 +23,7 @@ function PokemonCard({pokemon, myPokemons}){
                     myPokemon.sprites?.other?.showdown?.front_default;
                     const staticImage = myPokemon.sprites?.front_default;
                         return (
-                            <div>
+                            <div key={myPokemon.name}>
                                 <h3>{myPokemon.name}</h3>
                             <img
                         src={animated || staticImage}

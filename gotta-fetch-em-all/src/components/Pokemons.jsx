@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import PokemonCard from "./PokemonCard"
+import "./Pokemon.css";
 
     const myPokemons = [
         "https://pokeapi.co/api/v2/pokemon/bulbasaur",
@@ -91,7 +92,11 @@ function Pokemons(props){
 return (
     <div>
         <PokemonCard pokemon={selectedPokemon} myPokemons={userPokemons}/>
+
+        <div className="button-row">
         <button className="location-btn" onClick={()=>props.setSelectedLocation(null)}>Run away...</button>
+        <button className="location-btn">Fight!</button>
+        </div>
     </div>
 )
 

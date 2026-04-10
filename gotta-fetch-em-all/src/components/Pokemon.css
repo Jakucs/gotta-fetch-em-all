@@ -13,3 +13,15 @@
     transform: translateY(-10px);
   }
 }
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-btn {
+  width: auto;
+  flex: 0 0 auto;
+}

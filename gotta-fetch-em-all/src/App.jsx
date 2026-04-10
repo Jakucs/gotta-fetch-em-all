@@ -3,12 +3,13 @@ import './App.css'
 import Locations from './components/Locations'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedLocation, setSelectedLocation] = useState(0)
 
   return (
     <>
+    
       <h1>Pokémon Locations</h1>
-      <Locations></Locations>
+      <Locations selectedLocation={selectedLocation} setSelectedLocation={setSelectedLocation}></Locations>
     </>
   )
 }
