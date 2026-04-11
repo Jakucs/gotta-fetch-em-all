@@ -5,6 +5,7 @@ function Battle({own, enemy}){
 
     const [myHP, setMyHP] = useState(null)
     const [enemyHP, setEnemyHP] = useState(null)
+    const [turn, setTurn] = useState("player")
 
     if(!own) return <p>Loading...</p>
     if(!enemy) return <p>Loading...</p>
@@ -13,38 +14,46 @@ function Battle({own, enemy}){
     useEffect(()=>{
         setMyHP(own.hp)
         setEnemyHP(enemy.hp)
-    }, own, enemy)
+    }, [own, enemy])
 
 
-    function fight(){
-/*         ((((2/5+2)*B*60/D)/50)+2)*Z/255  */ 
-        let myAttack=own.attack
-        let enemyAttack = enemy.attack
+    useEffect(() => {
+        /*         ((((2/5+2)*B*60/D)/50)+2)*Z/255  */ 
+                let myAttack=own.attack
+                let enemyAttack = enemy.attack
+        
+                let myDefense = own.defense
+                let enemyDefense = enemy.defense
+                
 
-        let myDefense = own.defense
-        let enemyDefense = enemy.defense
-        let Z = Math.floor(Math.random() * (255 - 217)) + 217
-
-        setInterval(()=>{
-            round(myAttack, enemyAttack, myDefense, enemyDefense, Z)
-        }, 1000)
-
-        setInterval(()=>{
-            round2(myAttack, enemyAttack, myDefense, enemyDefense, Z)
-        }, 1000)
-    }
-
-    fight()
+                    const interval = setInterval(()=>{
+                        if(turn=="player"){
+                            let Z = Math.floor(Math.random() * (255 - 217)) + 217
+                            round(myAttack, myDefense, Z)
+                            setTurn("enemy")
+                        }else{
+                            let Z = Math.floor(Math.random() * (255 - 217)) + 217
+                            round2(enemyAttack, enemyDefense, Z)
+                            setTurn("player")
+                        }
+                    }, 1000)
+                
+                    return () => {
+                        clearInterval(interval)
+                    }
+                
+    }, [turn])
+    
 
     function round(myAttack, myDefense, Z){
         let myDamage = ((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255
-        setMyHP(prev=>myHP-myDamage)
+        setMyHP(prev=>prev-myDamage)
         console.log(myHP)
     }
 
         function round2(enemyAttack, enemyDefense, Z){
         let enemyDamage = ((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255
-        setEnemyHP(prev=>enemyHP-enemyDamage)
+        setEnemyHP(prev=>prev-enemyDamage)
         console.log(enemyHP)
     }
 
