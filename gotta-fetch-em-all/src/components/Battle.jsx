@@ -63,7 +63,7 @@ function Battle({own, enemy}){
                         src={enemy.sprites?.other?.showdown?.front_default || enemy.sprites?.front_default}
                         alt={enemy.name}
                     />
-                    <p>HP: {enemy.hp}</p>
+                    <p>HP: {myHP}</p>
 
                     <div className="hp-bar">
                         <div
@@ -83,7 +83,7 @@ function Battle({own, enemy}){
                         src={own.sprites?.other?.showdown?.front_default || own.sprites?.front_default}
                         alt={own.name}
                     />
-                    <p>HP: {own.hp}</p>
+                    <p>HP: {enemyHP}</p>
 
                     <div className="hp-bar">
                         <div
