@@ -7,6 +7,9 @@ function Battle({own, enemy}){
     const [enemyHP, setEnemyHP] = useState(null)
     const [turn, setTurn] = useState("player")
 
+    const [myMaxHP, setMyMaxHP] = useState(null)
+    const [enemyMaxHP, setEnemyMaxHP] = useState(null)
+
     if(!own) return <p>Loading...</p>
     if(!enemy) return <p>Loading...</p>
     {console.log("own, enemy", own, enemy)}
@@ -14,7 +17,12 @@ function Battle({own, enemy}){
     useEffect(()=>{
         setMyHP(own.hp)
         setEnemyHP(enemy.hp)
+
+        setMyMaxHP(own.hp)
+        setEnemyMaxHP(enemy.hp)
     }, [own, enemy])
+
+/*     if(enemyHP) */
 
 
     useEffect(() => {
@@ -36,7 +44,7 @@ function Battle({own, enemy}){
                             round2(enemyAttack, enemyDefense, Z)
                             setTurn("player")
                         }
-                    }, 1000)
+                    }, 500)
                 
                     return () => {
                         clearInterval(interval)
@@ -46,18 +54,24 @@ function Battle({own, enemy}){
     
 
     function round(myAttack, myDefense, Z){
-        let myDamage = ((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255
+        let myDamage = Math.round(((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255)
         setMyHP(prev=>prev-myDamage)
         console.log(myHP)
     }
 
         function round2(enemyAttack, enemyDefense, Z){
-        let enemyDamage = ((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255
+        let enemyDamage = Math.round(((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255)
         setEnemyHP(prev=>prev-enemyDamage)
         console.log(enemyHP)
     }
 
+    function getHpColor(current, max) {
+        const ratio = current / max;
 
+        if (ratio <= 0.25) return "#e74c3c";
+        if (ratio <= 0.5) return "#f1c40f";
+        return "#2ecc71"; // zöld
+    }
     return(
     <div>
         <div className="battle-container">
@@ -72,12 +86,15 @@ function Battle({own, enemy}){
                         src={enemy.sprites?.other?.showdown?.front_default || enemy.sprites?.front_default}
                         alt={enemy.name}
                     />
-                    <p>HP: {myHP}</p>
+                    <p>HP: {enemyHP}</p>
 
                     <div className="hp-bar">
                         <div
                             className="hp-fill"
-                            style={{ width: `${enemy.hp}%` }}
+                                style={{
+                                width: enemyHP ? `${(enemyHP / enemyMaxHP) * 100}%` : "100%",
+                                background: getHpColor(enemyHP, enemyMaxHP)
+                            }}
                         />
                     </div>
                 </div>
@@ -92,12 +109,15 @@ function Battle({own, enemy}){
                         src={own.sprites?.other?.showdown?.front_default || own.sprites?.front_default}
                         alt={own.name}
                     />
-                    <p>HP: {enemyHP}</p>
+                    <p>HP: {myHP}</p>
 
                     <div className="hp-bar">
                         <div
                             className="hp-fill"
-                            style={{ width: `${own.hp}%` }}
+                                style={{
+                                width: myHP ? `${(myHP / myMaxHP) * 100}%` : "100%",
+                                background: getHpColor(myHP, myMaxHP)
+                            }}
                         />
                     </div>
                 </div>
