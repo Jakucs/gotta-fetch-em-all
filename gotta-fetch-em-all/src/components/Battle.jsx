@@ -1,11 +1,19 @@
+import { useEffect, useState } from "react"
 import "./Battle.css"
 
 function Battle({own, enemy}){
+
+    const [myHP, setMyHP] = useState(null)
+    const [enemyHP, setEnemyHP] = useState(null)
 
     if(!own) return <p>Loading...</p>
     if(!enemy) return <p>Loading...</p>
     {console.log("own, enemy", own, enemy)}
 
+    useEffect(()=>{
+        setMyHP(own.hp)
+        setEnemyHP(enemy.hp)
+    }, own, enemy)
 
 
     function fight(){
@@ -21,14 +29,23 @@ function Battle({own, enemy}){
             round(myAttack, enemyAttack, myDefense, enemyDefense, Z)
         }, 1000)
 
+        setInterval(()=>{
+            round2(myAttack, enemyAttack, myDefense, enemyDefense, Z)
+        }, 1000)
     }
-fight()
 
-    function round(myAttack, enemyAttack, myDefense, enemyDefense, Z){
-        let myNewData = ((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255
-        let enemyNewData = ((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255
-        console.log(myNewData)
-        console.log(enemyNewData)
+    fight()
+
+    function round(myAttack, myDefense, Z){
+        let myDamage = ((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255
+        setMyHP(prev=>myHP-myDamage)
+        console.log(myHP)
+    }
+
+        function round2(enemyAttack, enemyDefense, Z){
+        let enemyDamage = ((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255
+        setEnemyHP(prev=>enemyHP-enemyDamage)
+        console.log(enemyHP)
     }
 
 
