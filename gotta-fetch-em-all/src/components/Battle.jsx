@@ -22,7 +22,9 @@ function Battle({own, enemy}){
         setEnemyMaxHP(enemy.hp)
     }, [own, enemy])
 
-/*     if(enemyHP) */
+    if(enemyHP<1){
+        
+    }
 
 
     useEffect(() => {

@@ -47,9 +47,11 @@ function Pokemons(props){
         async function fetchCurrentPokemon(){
             let res = await fetch(randomPokemonURL)
             let data = await res.json()
+/*             console.log("data", data) */
             if(isMounted)
             {
                 let pokemon = {
+                    id: data.id,
                     name: data.forms[0].name,
                     image: data.sprites?.front_default,
                     sprites: data.sprites,
@@ -59,6 +61,7 @@ function Pokemons(props){
                 }
                 setSelectedPokemon(pokemon)
             }
+/*             console.log(pokemon) */
         }
         fetchCurrentPokemon()
             
@@ -73,6 +76,7 @@ function Pokemons(props){
             }))
 
             const formattedPokemons = data.map((pokemon) => ({
+                    id: pokemon.id,
                     name: pokemon.forms[0].name,
                     image: pokemon.sprites?.front_default,
                     sprites: pokemon.sprites,
