@@ -2,7 +2,7 @@ import { useState } from "react";
 import Battle from './Battle'
 
 
-function PokemonCard({pokemon, myPokemons}){
+function PokemonCard({pokemon, myPokemons, setMyPokemons, setSelectedLocation}){
 
     const [isBattle, setIsBattle] = useState(false)
     const [myFighterPokemon, setMyFighterPokemon] = useState(null)
@@ -63,7 +63,12 @@ function PokemonCard({pokemon, myPokemons}){
 
 
                 {isBattle && myFighterPokemon && (
-                    <Battle own={myFighterPokemon} enemy={pokemon}/>
+                    <Battle 
+                    own={myFighterPokemon} 
+                    enemy={pokemon} 
+                    setMyPokemons={setMyPokemons}
+                    setSelectedLocation={setSelectedLocation}
+                    />
                 )}
 {/*                     {console.log(myFighterPokemon)} */}
             </div>

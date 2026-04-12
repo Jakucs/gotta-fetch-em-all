@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import "./Battle.css"
 
-function Battle({own, enemy}){
+function Battle({own, enemy, setMyPokemons, setSelectedLocation}){
 
     const [myHP, setMyHP] = useState(null)
     const [enemyHP, setEnemyHP] = useState(null)
@@ -9,6 +9,8 @@ function Battle({own, enemy}){
 
     const [myMaxHP, setMyMaxHP] = useState(null)
     const [enemyMaxHP, setEnemyMaxHP] = useState(null)
+
+/*     const [gameResult, setGameResult] = useState(null) */
 
     if(!own) return <p>Loading...</p>
     if(!enemy) return <p>Loading...</p>
@@ -22,9 +24,13 @@ function Battle({own, enemy}){
         setEnemyMaxHP(enemy.hp)
     }, [own, enemy])
 
-    if(enemyHP<1){
-        
-    }
+    useEffect(()=>{
+        if(enemyHP===0){
+           console.log("enemy.id: ", enemy.id)
+           setMyPokemons(prev=>[...prev, `https://pokeapi.co/api/v2/pokemon/${enemy.id}`])
+           setSelectedLocation(null)
+       }
+    }, [enemyHP])
 
 
     useEffect(() => {
@@ -57,13 +63,13 @@ function Battle({own, enemy}){
 
     function round(myAttack, myDefense, Z){
         let myDamage = Math.round(((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255)
-        setMyHP(prev=>prev-myDamage)
+        setMyHP(prev => Math.max(0, prev - myDamage))
         console.log(myHP)
     }
 
         function round2(enemyAttack, enemyDefense, Z){
         let enemyDamage = Math.round(((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255)
-        setEnemyHP(prev=>prev-enemyDamage)
+        setEnemyHP(prev => Math.max(0, prev - enemyDamage))
         console.log(enemyHP)
     }
 

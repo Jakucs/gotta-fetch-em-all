@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import PokemonCard from "./PokemonCard"
 import "./Pokemon.css";
+import Battle from "./Battle";
 
-    const myPokemons = [
+/*     const myPokemons = [
         "https://pokeapi.co/api/v2/pokemon/bulbasaur",
         "https://pokeapi.co/api/v2/pokemon/charizard",
         "https://pokeapi.co/api/v2/pokemon/poliwhirl"
-    ]
+    ] */
 
 function Pokemons(props){
     
@@ -14,6 +15,12 @@ function Pokemons(props){
     const [randomPokemonURL, setRandomPokemonURL] = useState(null)
     const [selectedPokemon, setSelectedPokemon] = useState({})
     const [userPokemons, setUserPokemons] = useState([])
+    const [myPokemons, setMyPokemons] = useState([        
+        "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+        "https://pokeapi.co/api/v2/pokemon/charizard",
+        "https://pokeapi.co/api/v2/pokemon/poliwhirl"])
+
+
 
     let nextURL = props.selectedLocation.url
     useEffect(()=>{
@@ -101,8 +108,13 @@ function Pokemons(props){
 
 return (
     <div>
-        <PokemonCard pokemon={selectedPokemon} myPokemons={userPokemons}/>
-
+        <PokemonCard 
+        pokemon={selectedPokemon} 
+        myPokemons={userPokemons} 
+        setMyPokemons={setMyPokemons}
+        setSelectedLocation={props.setSelectedLocation}
+        />
+        {/* <Battle setMyPokemons={setMyPokemons}></Battle> */}
         <div className="button-row">
         <button className="location-btn" onClick={()=>props.setSelectedLocation(null)}>Run away...</button>
         <button className="location-btn">Fight!</button>
