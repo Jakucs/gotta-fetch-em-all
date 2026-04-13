@@ -9,20 +9,22 @@ import Battle from "./Battle";
         "https://pokeapi.co/api/v2/pokemon/poliwhirl"
     ] */
 
-function Pokemons(props){
+function Pokemons({
+    selectedLocation, 
+    setBattleResult, 
+    setSelectedLocation, 
+    myPokemons, 
+    setMyPokemons}){
     
     const [pokemonURLs, setPokemonURLs] = useState([])
     const [randomPokemonURL, setRandomPokemonURL] = useState(null)
     const [selectedPokemon, setSelectedPokemon] = useState({})
     const [userPokemons, setUserPokemons] = useState([])
-    const [myPokemons, setMyPokemons] = useState([        
-        "https://pokeapi.co/api/v2/pokemon/bulbasaur",
-        "https://pokeapi.co/api/v2/pokemon/charizard",
-        "https://pokeapi.co/api/v2/pokemon/poliwhirl"])
 
 
 
-    let nextURL = props.selectedLocation.url
+
+    let nextURL = selectedLocation.url
     useEffect(()=>{
         async function getPokemon(){
             let res = await fetch(nextURL)
@@ -93,6 +95,8 @@ function Pokemons(props){
             }))
 
             setUserPokemons(formattedPokemons)
+            console.log("MYPOKEMONS", myPokemons)
+            console.log("userPokemons", userPokemons)
 
 
 
@@ -100,7 +104,7 @@ function Pokemons(props){
         }
         fetchMyPokemons()
         
-    }, [])
+    }, [myPokemons]) //utólagos myPokemons
 
     //console.log(userPokemons)
 
@@ -112,11 +116,11 @@ return (
         pokemon={selectedPokemon} 
         myPokemons={userPokemons} 
         setMyPokemons={setMyPokemons}
-        setSelectedLocation={props.setSelectedLocation}
+        setSelectedLocation={setSelectedLocation}
         />
         {/* <Battle setMyPokemons={setMyPokemons}></Battle> */}
         <div className="button-row">
-        <button className="location-btn" onClick={()=>props.setSelectedLocation(null)}>Run away...</button>
+        <button className="location-btn" onClick={()=>setSelectedLocation(null)}>Run away...</button>
         <button className="location-btn">Fight!</button>
         </div>
     </div>

@@ -43,15 +43,15 @@ function Battle({own, enemy, setMyPokemons, setSelectedLocation}){
                 
 
                     const interval = setInterval(()=>{
-                        if(turn=="player"){
-                            let Z = Math.floor(Math.random() * (255 - 217)) + 217
-                            round(myAttack, myDefense, Z)
-                            setTurn("enemy")
-                        }else{
-                            let Z = Math.floor(Math.random() * (255 - 217)) + 217
-                            round2(enemyAttack, enemyDefense, Z)
-                            setTurn("player")
-                        }
+                    if (turn == "player") {
+                        let Z = Math.floor(Math.random() * (255 - 217)) + 217
+                        round(myAttack, enemyDefense, Z)
+                        setTurn("enemy")
+                    } else {
+                        let Z = Math.floor(Math.random() * (255 - 217)) + 217
+                        round2(enemyAttack, myDefense, Z)
+                        setTurn("player")
+                    }
                     }, 500)
                 
                     return () => {
@@ -61,16 +61,14 @@ function Battle({own, enemy, setMyPokemons, setSelectedLocation}){
     }, [turn])
     
 
-    function round(myAttack, myDefense, Z){
-        let myDamage = Math.round(((((2/5+2)*myAttack*60/myDefense)/50)+2)*Z/255)
-        setMyHP(prev => Math.max(0, prev - myDamage))
-        console.log(myHP)
+    function round(myAttack, enemyDefense, Z) {
+        let damage = Math.round(((((2 / 5 + 2) * myAttack * 60 / enemyDefense) / 50) + 2) * Z / 255)
+        setEnemyHP(prev => Math.max(0, prev - damage))
     }
 
-        function round2(enemyAttack, enemyDefense, Z){
-        let enemyDamage = Math.round(((((2/5+2)*enemyAttack*60/enemyDefense)/50)+2)*Z/255)
-        setEnemyHP(prev => Math.max(0, prev - enemyDamage))
-        console.log(enemyHP)
+    function round2(enemyAttack, myDefense, Z) {
+        let damage = Math.round(((((2 / 5 + 2) * enemyAttack * 60 / myDefense) / 50) + 2) * Z / 255)
+        setMyHP(prev => Math.max(0, prev - damage))
     }
 
     function getHpColor(current, max) {
