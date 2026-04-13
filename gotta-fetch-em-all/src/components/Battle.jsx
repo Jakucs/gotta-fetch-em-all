@@ -29,36 +29,31 @@ function Battle({own, enemy, setMyPokemons, setSelectedLocation}){
            console.log("enemy.id: ", enemy.id)
            setMyPokemons(prev=>[...prev, `https://pokeapi.co/api/v2/pokemon/${enemy.id}`])
            setSelectedLocation(null)
+       } else if(myHP===0){
+        setSelectedLocation(null)
        }
     }, [enemyHP])
 
 
     useEffect(() => {
-        /*         ((((2/5+2)*B*60/D)/50)+2)*Z/255  */ 
-                let myAttack=own.attack
-                let enemyAttack = enemy.attack
-        
-                let myDefense = own.defense
-                let enemyDefense = enemy.defense
-                
+        if (myHP === null || enemyHP === null) return
+        if (myHP === 0 || enemyHP === 0) return
 
-                    const interval = setInterval(()=>{
-                    if (turn == "player") {
-                        let Z = Math.floor(Math.random() * (255 - 217)) + 217
-                        round(myAttack, enemyDefense, Z)
-                        setTurn("enemy")
-                    } else {
-                        let Z = Math.floor(Math.random() * (255 - 217)) + 217
-                        round2(enemyAttack, myDefense, Z)
-                        setTurn("player")
-                    }
-                    }, 500)
-                
-                    return () => {
-                        clearInterval(interval)
-                    }
-                
-    }, [turn])
+        const timeout = setTimeout(() => {
+            const Z = Math.floor(Math.random() * (255 - 217)) + 217
+
+            if (turn === "player") {
+                round(own.attack, enemy.defense, Z)
+                setTurn("enemy")
+            } else {
+                round2(enemy.attack, own.defense, Z)
+                setTurn("player")
+            }
+        }, 500)
+
+        return () => clearTimeout(timeout)
+    }, [turn, myHP, enemyHP, own, enemy])
+
     
 
     function round(myAttack, enemyDefense, Z) {

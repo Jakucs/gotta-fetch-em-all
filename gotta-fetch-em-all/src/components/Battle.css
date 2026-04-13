@@ -88,3 +88,23 @@
     transform: translateY(-2px);
     background-color: #f7b500;
 }
+
+.user-pokemons-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.user-pokemon-card {
+    width: 140px;
+    text-align: center;
+}
+
+
+.user-pokemon-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    cursor: pointer;
+}

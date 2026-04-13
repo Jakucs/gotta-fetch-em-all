@@ -36,27 +36,27 @@ function PokemonCard({pokemon, myPokemons, setMyPokemons, setSelectedLocation}){
                 <div>
 
                 <h3>User's Pokémons: </h3>
-                {myPokemons.map((myPokemon) => {
-                    const animated =
-                    myPokemon.sprites?.other?.showdown?.front_default;
-                    const staticImage = myPokemon.sprites?.front_default;
-                        return (
-                            <div key={myPokemon.name}>
-                                <h3>{myPokemon.name}</h3>
-                            <img
-                        src={animated || staticImage}
-                        alt={myPokemon.name}
-                        onClick={
-                            ()=>{
-                                setIsBattle(true)
-                                setMyFighterPokemon(myPokemon)
-                            }
-                        }
-                    />
-                            </div>
-                        )
-                    
-                })}
+<div className="user-pokemons-list">
+    {myPokemons.map((myPokemon) => {
+        const animated = myPokemon.sprites?.other?.showdown?.front_default;
+        const staticImage = myPokemon.sprites?.front_default;
+
+        return (
+            <div className="user-pokemon-card" key={myPokemon.name}>
+                <h3>{myPokemon.name}</h3>
+                <img
+                    src={animated || staticImage}
+                    alt={myPokemon.name}
+                    onClick={() => {
+                        setIsBattle(true)
+                        setMyFighterPokemon(myPokemon)
+                    }}
+                />
+            </div>
+        );
+    })}
+</div>
+
                 </div>
                 }
 
