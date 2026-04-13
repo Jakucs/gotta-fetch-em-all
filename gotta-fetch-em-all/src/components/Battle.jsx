@@ -32,7 +32,7 @@ function Battle({own, enemy, setMyPokemons, setSelectedLocation}){
        } else if(myHP===0){
         setSelectedLocation(null)
        }
-    }, [enemyHP])
+    }, [enemyHP, myHP])
 
 
     useEffect(() => {
